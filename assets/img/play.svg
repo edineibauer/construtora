@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="29px" viewBox="0 0 22 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>play-button (8)</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-15" transform="translate(-554.000000, -477.000000)" fill-rule="nonzero" fill="#2D3037">
+            <g id="Group-18" transform="translate(510.000000, 460.000000)">
+                <g id="Group-3">
+                    <g id="Group-17" transform="translate(44.000000, 17.000000)">
+                        <g id="play-button-(8)">
+                            <path d="M21.35925,13.9310476 L1.42175,0.12152381 C1.2106875,-0.0241666667 0.9370625,-0.0393571429 0.7115625,0.0787142857 C0.485375,0.198166667 0.34375,0.432928571 0.34375,0.689785714 L0.34375,28.3088333 C0.34375,28.5656905 0.485375,28.8011429 0.7115625,28.9205952 C0.8119375,28.9730714 0.9219375,28.9993095 1.03125,28.9993095 C1.1680625,28.9993095 1.3041875,28.957881 1.42175,28.8770952 L21.35925,15.0675714 C21.5455625,14.9384524 21.65625,14.7264762 21.65625,14.4993095 C21.65625,14.2721429 21.544875,14.0601667 21.35925,13.9310476 Z M1.71875,26.9941667 L1.71875,2.00514286 L19.7580625,14.5 L1.71875,26.9941667 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
