@@ -12,6 +12,6 @@
   ],
   "require": {
     "php": "^7.0",
-    "conn/dashboard": "^1"
+    "conn/dashboard": "dev-master"
   }
 }
