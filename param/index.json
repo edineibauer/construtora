@@ -1,4 +1,5 @@
 {
   "title": "Concretur - Construtora",
-  "css": ["bootstrap"]
+  "css": ["bootstrap"],
+  "font": ["Roboto"]
 }

@@ -1,3 +1,7 @@
+* {
+    font-family: Roboto;
+}
+
 #logo, #logo img {
     width: 130px;
     height: auto;
@@ -104,4 +108,26 @@ img {
 
 ul li a {
     text-decoration: none !important;
+}
+
+.color-yellow, .color-hover-yellow:hover {
+    color: #000 !important;
+    background-color: #FAC72D !important
+}
+
+.color-text-yellow, .color-hover-text-yellow:hover {
+    color: #FAC72D !important
+}
+
+.color-border-yellow, .color-hover-border-yellow:hover {
+    border-color: #FAC72D !important
+}
+
+.color-grey-dark, .color-hover-grey-dark:hover, .color-gray-dark, .color-hover-gray-dark:hover {
+    color: #fff !important;
+    background-color: #242424 !important
+}
+
+.color-text-grey-dark, .color-hover-text-grey-dark:hover, .color-text-gray-dark, .color-hover-text-gray-dark:hover {
+    color: #242424 !important
 }
