@@ -6,10 +6,8 @@
 
         <div class="rest">
                 <?php
-                $read = new \ConnCrud\Read();
                 $read->exeRead(PRE . "menu", "ORDER BY id ASC LIMIT 6");
                 if ($read->getResult()) {
-                    $tpl = new \Helpers\Template("concretur");
                     $tpl->show("menu", ["data" => $read->getResult()]);
                 }
                 ?>

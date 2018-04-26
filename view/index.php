@@ -1,4 +1,6 @@
 <?php
+$read = new \ConnCrud\Read();
+$tpl = new \Helpers\Template("construtora");
 define('HOMEDEV', HOME . (DEV && DOMINIO === "concretur" ? "" : "vendor/conn/concretur/"));
 require_once 'inc/header.php';
 ?>
