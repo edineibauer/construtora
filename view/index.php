@@ -8,6 +8,7 @@ require_once 'inc/header.php';
     $read->exeRead("slide_home", "ORDER BY id DESC LIMIT 3");
     if ($read->getResult()) {
         foreach ($read->getResult() as $item) {
+            $item['homedev'] = HOMEDEV;
             $item['logo'] = HOME . str_replace('\\', '/', json_decode($item['logo'], true)[0]['url']);
             $item['background'] = \Helpers\Helper::convertImageJson($item['background']);
             $tpl->show("slide", $item);
