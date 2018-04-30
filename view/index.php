@@ -1,7 +1,5 @@
 <?php
-$read = new \ConnCrud\Read();
-$tpl = new \Helpers\Template("construtora");
-define('HOMEDEV', HOME . (DEV && DOMINIO === "construtora" ? "" : "vendor/conn/construtora/"));
+define('HOMEDEV', HOME . (DEV && DOMINIO === "concretur" ? "" : "vendor/conn/concretur/"));
 require_once 'inc/header.php';
 ?>
 
@@ -10,9 +8,8 @@ require_once 'inc/header.php';
     $read->exeRead("slide_home", "ORDER BY id DESC LIMIT 3");
     if ($read->getResult()) {
         foreach ($read->getResult() as $item) {
-            $item['homedev'] = HOMEDEV;
             $item['logo'] = HOME . str_replace('\\', '/', json_decode($item['logo'], true)[0]['url']);
-            $item['background'] = HOME . str_replace('\\', '/', json_decode($item['background'], true)[0]['url']);
+            $item['background'] = \Helpers\Helper::convertImageJson($item['background']);
             $tpl->show("slide", $item);
         }
     }
@@ -84,7 +81,7 @@ require_once 'inc/header.php';
             $read->exeRead("empreendimentos", "ORDER BY ID DESC LIMIT 6");
             if ($read->getResult()) {
                 foreach ($read->getResult() as $item) {
-                    $item['imagem'] = HOME . json_decode($item['imagem'], true)[0]['url'];
+                    $item['imagem_do_empreendimento'] = \Helpers\Helper::convertImageJson($item['imagem_do_empreendimento']);
                     $tpl->show("empreendimento", $item);
                 }
             }
