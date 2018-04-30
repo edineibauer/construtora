@@ -217,7 +217,7 @@ if (!empty($endereco['cep']) && !empty($endereco['cep']['latitude']) && !empty($
         <div class="col background-location">
             <div class="col c-container padding-24 align-center">
                 <h1 class="upper padding-4 color-text-white">Localização</h1>
-                <span class="col color-text-white font-light">testes</span>
+                <span class="col color-text-white font-light"><?=$endereco['logradouro'] ?? ""?></span>
                 <div class="col padding-16"></div>
             </div>
         </div>
