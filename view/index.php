@@ -81,6 +81,7 @@ require_once 'inc/header.php';
             $read->exeRead("empreendimentos", "ORDER BY ID DESC LIMIT 6");
             if ($read->getResult()) {
                 foreach ($read->getResult() as $item) {
+                    $item['background'] = \Helpers\Helper::convertImageJson($item['background']);
                     $item['imagem_do_empreendimento'] = \Helpers\Helper::convertImageJson($item['imagem_do_empreendimento']);
                     $tpl->show("empreendimento", $item);
                 }
