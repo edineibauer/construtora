@@ -14,7 +14,7 @@
                 </div>
                 <div class="col align-center padding-32">
                     <button class="btn-large hover-shadow color-text-grey c-slide-play radius-xxlarge color-white align-center">
-                        <img src="{$homedev}assets/img/play.svg" class="left padding-right" width="34px" style="width: 34px">
+                        <img src="{$home}assets/img/play.svg" class="left padding-right" width="34px" style="width: 34px">
                         <span class="left upper font-weight-bold font-medium">Assista ao Vídeo</span>
                     </button>
                 </div>
