@@ -7,6 +7,7 @@
             if ($social) {
                 foreach (["telefone", "whatsapp", "email"] as $col) {
                     $data = [
+                        "homedev" => HOMEDEV,
                         "icon" => $col,
                         "titulo" => $col === "telefone" ? "Fale Conosco" : ($col === "whatsapp" ? "Fale Whatsapp" : "Atendimento por E-mail"),
                         "contato" => $social[$col]

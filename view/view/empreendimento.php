@@ -11,7 +11,7 @@ extract(\Entity\Entity::read("empreendimentos", ["name" => $link->getUrl()[1]]))
     <div class="col padding-128">
         <div class="col padding-48 block align-center">
             <button class="btn-large hover-shadow color-text-grey c-slide-play radius-xxlarge color-white align-center">
-                <img src="<?= HOME ?>assets/img/play.svg" class="left padding-right" width="34px"
+                <img src="<?= HOMEDEV ?>assets/img/play.svg" class="left padding-right" width="34px"
                      style="width: 34px">
                 <span class="left upper font-weight-bold font-medium">Assista ao Vídeo</span>
             </button>
@@ -47,13 +47,13 @@ extract(\Entity\Entity::read("empreendimentos", ["name" => $link->getUrl()[1]]))
             if (!empty($caracteristicas)) {
                 foreach (["suite" => ["quartos", "suites", "master"], "garagem", "lazer"] as $c) {
                     if (is_array($c)) {
-                        $tplData = ['icon' => HOME . "assets/img/empreendimento/suite.svg", "title" => ""];
+                        $tplData = ['icon' => HOMEDEV . "assets/img/empreendimento/suite.svg", "title" => ""];
                         foreach ($c as $item) {
                             if (!empty($caracteristicas[$item]))
                                 $tplData['title'] .= "{$caracteristicas[$item]} {$item} ";
                         }
                     } else {
-                        $tplData = ['icon' => HOME . "assets/img/empreendimento/{$c}.svg", "title" => ""];
+                        $tplData = ['icon' => HOMEDEV . "assets/img/empreendimento/{$c}.svg", "title" => ""];
                         $tplData['title'] = "{$caracteristicas[$c === "lazer" ? "area_de_lazer" : $c]} " . ($c === "garagem" ? "vagas de garagem por apartamento" : ($c === "lazer" ? "pavimentos de área de lazer" : ""));
                     }
                     $tpl->show("caracteristicas_empreendimento", $tplData);
@@ -95,7 +95,7 @@ extract(\Entity\Entity::read("empreendimentos", ["name" => $link->getUrl()[1]]))
             <?php
             if (!empty($infraestrutura['categorias'])) {
                 foreach ($infraestrutura['categorias'] as $ic) {
-                    $tpl->show("tag", ["icon" => HOME . "assets/img/empreendimento/correct.svg", "title" => $ic['titulo']]);
+                    $tpl->show("tag", ["icon" => HOMEDEV . "assets/img/empreendimento/correct.svg", "title" => $ic['titulo']]);
                 }
             }
 
