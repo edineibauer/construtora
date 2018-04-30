@@ -2,7 +2,6 @@ $(document).scroll(function (e) {
     let $obra = $(".div-andamento-obra");
     if($obra.attr("data-effect") === "0" && $(window).scrollTop() > ($obra.offset().top - $(window).height())) {
         $obra.attr("data-effect", 1);
-        console.log('ok');
         $('.loaderCircle').each(function() {
             $(this).ClassyLoader({
                 percentage: $(this).attr("rel"),
