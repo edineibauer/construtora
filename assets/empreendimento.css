@@ -83,12 +83,8 @@ ul li a {
     margin-top: 100px;
 }
 
-.c-slide-arrow-right i {
-    margin-left: -13px;
-}
-
-.c-slide-arrow-left i {
-    margin-left: -13px;
+.c-slide-arrow-right i, .c-slide-arrow-left i {
+    margin-left: -22px;
 }
 
 .divisor-menu {
@@ -117,4 +113,28 @@ ul li a {
 
 a:hover {
     text-decoration: none;
+}
+
+.slide-block-fotos {
+    width: 8000px;
+    height: 300px;
+    transition: ease-in-out 0.3s;
+}
+
+.slide-block-fotos img {
+    height: 300px;
+    width: auto!important;
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.empreendimento-video {
+    transition: ease-in-out 0.3s;
 }

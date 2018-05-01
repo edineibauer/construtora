@@ -13,45 +13,55 @@ require_once 'inc/header.php';
 extract(\Entity\Entity::read("empreendimentos", ["name" => $link->getUrl()[1]]));
 ?>
 
-    <div class="col c-slide relative"
+    <div class="col c-slide empreendimento-video relative"
          style="background-image: url('<?= $background ?>')">
         <div class="c-slide-opaco"></div>
-        <div class="col padding-128">
-            <div class="col padding-48 block align-center">
-                <button class="btn-large hover-shadow color-text-grey c-slide-play radius-xxlarge color-white align-center">
-                    <img src="<?= HOMEDEV ?>assets/img/play.svg" class="left padding-right" width="34px"
-                         style="width: 34px">
-                    <span class="left upper font-weight-bold font-medium">Assista ao Vídeo</span>
-                </button>
+        <?php
+        if (!empty($link_do_video)) {
+            if(preg_match('/youtube\.com/i', $link_do_video)) {
+                $video_server = "youtube";
+                $video_id = explode("?v=", $link_do_video)[1];
+            }
+            ?>
+            <div class="col padding-128">
+                <div class="col padding-48 block align-center">
+                    <button data-id="<?=$video_id?>" data-server="<?=$video_server?>" class="btn-large btn-empreendimento-video hover-shadow color-text-grey c-slide-play radius-xxlarge color-white align-center">
+                        <img src="<?= HOMEDEV ?>assets/img/play.svg" class="left padding-right" width="34px"
+                             style="width: 34px">
+                        <span class="left upper font-weight-bold font-medium">Assista ao Vídeo</span>
+                    </button>
+                </div>
             </div>
-        </div>
+            <?php
+        }
+        ?>
     </div>
 
     <div class="col">
         <div class="col c-container2 padding-48">
             <ul class="font-large color-text-grey">
-                <a class="padding-medium left pointer color-hover-gray-light color-text-grey"
+                <a class="padding-medium left pointer color-hover-gray-light color-text-grey no-select"
                    href="#empreendimento-caracteristicas">Características</a>
                 <li class="divisor-menu"></li>
-                <a class="padding-medium left pointer color-hover-gray-light color-text-grey"
+                <a class="padding-medium left pointer color-hover-gray-light color-text-grey no-select"
                    href="#empreendimento-infra">Infraestrutura</a>
                 <li class="divisor-menu"></li>
                 <?php
                 if (!empty($plantas)) {
                     ?>
-                    <a class="padding-medium left pointer color-hover-gray-light color-text-grey"
+                    <a class="padding-medium left pointer color-hover-gray-light color-text-grey no-select"
                        href="#empreendimento-planta">Plantas</a>
                     <li class="divisor-menu"></li>
                     <?php
                 }
                 ?>
-                <a class="padding-medium left pointer color-hover-gray-light color-text-grey"
+                <a class="padding-medium left pointer color-hover-gray-light color-text-grey no-select"
                    href="#empreendimento-andamento">Acompanhe a Obra</a>
                 <li class="divisor-menu"></li>
                 <?php
                 if (!empty($endereco['cep']) && !empty($endereco['cep']['latitude']) && !empty($endereco['cep']['latitude'])) {
                     ?>
-                    <a class="padding-medium left pointer color-hover-gray-light color-text-grey"
+                    <a class="padding-medium left pointer color-hover-gray-light color-text-grey no-select"
                        href="#empreendimento-localizacao">Localização</a>
                     <?php
                 }
@@ -137,13 +147,13 @@ if (!empty($plantas)) {
                 <div class="col s12 m3 overflow-hidden padding-64">
                     <?php
                     foreach ($plantas as $i => $planta)
-                        echo "<span class='col padding-large" . ($i === 0 ? " color-text-yellow" : "") . " pointer planta-select margin-small font-weight-normal color-hover-gray-light upper font-xlarge color-text-grey color-hover-text-yellow'>{$planta['titulo']}</span>";
+                        echo "<span rel='{$i}' class='col padding-large no-select" . ($i === 0 ? " color-text-yellow" : "") . " pointer planta-select margin-small font-weight-normal color-hover-gray-light upper font-xlarge color-text-grey color-hover-text-yellow'>{$planta['titulo']}</span>";
                     ?>
                 </div>
                 <div class="col s12 m9 padding-8">
                     <?php
                     foreach ($plantas as $i => $planta)
-                        echo "<img src='{$planta['imagem']}' class='" . ($i > 0 ? "hide" : "") . "'>";
+                        echo "<img id='planta-img-{$i}' src='{$planta['imagem']}' class='no-select planta-img" . ($i > 0 ? " hide" : "") . "'>";
                     ?>
                 </div>
             </div>
@@ -190,20 +200,22 @@ if (!empty($fotos_da_obra)) {
         <div class="col c-container padding-32 align-center">
             <h2 class="upper padding-8">Fotos da Obra</h2>
         </div>
-        <div class="col c-container">
+        <div class="col c-container no-select">
             <div class="col left c-slide-arrow c-slide-arrow-left pointer no-select" id="prevFotoObra">
-                <i class="material-icons font-jumbo">keyboard_arrow_left</i>
+                <i class="material-icons font-jumbo no-select">keyboard_arrow_left</i>
             </div>
             <div class="col right c-slide-arrow c-slide-arrow-right pointer no-select" id="nextFotoObra">
-                <i class="material-icons font-jumbo">keyboard_arrow_right</i>
+                <i class="material-icons font-jumbo no-select">keyboard_arrow_right</i>
             </div>
-            <div class="rest">
-                <?php
-                foreach ($fotos_da_obra as $i => $foto) {
-                    if ($i < 6)
-                        echo "<div class='col s12 m4" . ($i > 2 ? " hide" : "") . " empreendimento-obra-foto'><img src='" . HOME . str_replace('\\', '/', $foto['url']) . "' title='{$foto['name']}'></div>";
-                }
-                ?>
+            <div class="rest overflow-hidden no-select">
+                <div class="slide-block-fotos">
+                    <?php
+                    foreach ($fotos_da_obra as $i => $foto) {
+                        if ($i < 6)
+                            echo "<img class='left padding-small no-select' src='" . HOME . str_replace('\\', '/', $foto['url']) . "' title='{$foto['name']}'>";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
         <div class="col padding-48"></div>
@@ -217,7 +229,7 @@ if (!empty($endereco['cep']) && !empty($endereco['cep']['latitude']) && !empty($
         <div class="col background-location">
             <div class="col c-container padding-24 align-center">
                 <h1 class="upper padding-4 color-text-white">Localização</h1>
-                <span class="col color-text-white font-light"><?=$endereco['logradouro'] ?? ""?></span>
+                <span class="col color-text-white font-light"><?= $endereco['logradouro'] ?? "" ?></span>
                 <div class="col padding-16"></div>
             </div>
         </div>
