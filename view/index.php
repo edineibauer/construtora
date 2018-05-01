@@ -3,15 +3,33 @@ define('HOMEDEV', HOME . (DEV && DOMINIO === "construtora" ? "" : "vendor/conn/c
 require_once 'inc/header.php';
 ?>
 
-<div class="row">
+<div class="row relative" style="height: 600px;">
     <?php
-    $read->exeRead("slide_home", "ORDER BY id DESC LIMIT 3");
+    $read->exeRead("empreendimentos", "WHERE andamento_da_obra = '3'", "ORDER BY id DESC LIMIT 3");
     if ($read->getResult()) {
+        $i = 0;
         foreach ($read->getResult() as $item) {
-            $item['homedev'] = HOMEDEV;
-            $item['logo'] = HOME . str_replace('\\', '/', json_decode($item['logo'], true)[0]['url']);
-            $item['background'] = \Helpers\Helper::convertImageJson($item['background']);
-            $tpl->show("slide", $item);
+            $item['video_server'] = "";
+            $item['video_id'] = "";
+            if (!empty($item['link_do_video'])) {
+                if (preg_match('/youtube\.com/i', $item['link_do_video'])) {
+                    $item['video_server'] = "youtube";
+                    if (preg_match('/\?v=/i', $item['link_do_video']))
+                        $item['video_id'] = explode("?v=", $item['link_do_video'])[1];
+                    elseif (preg_match('/youtube\.com\/embed\//i', $item['link_do_video']))
+                        $item['video_id'] = explode('"', explode("youtube.com/embed/", $item['link_do_video'])[1])[0];
+
+                }
+            }
+
+            if (!empty($item['link_do_video']) || !empty($item['logo_empreendimento'])) {
+                $item['i'] = $i;
+                $item['homedev'] = HOMEDEV;
+                $item['logo_empreendimento'] = HOME . str_replace('\\', '/', json_decode($item['logo_empreendimento'], true)[0]['url']);
+                $item['background'] = \Helpers\Helper::convertImageJson($item['background']);
+                $tpl->show("slide", $item);
+                $i++;
+            }
         }
     }
     ?>
@@ -71,20 +89,43 @@ require_once 'inc/header.php';
 
             <div class="right">
                 <ul class="padding-0 font-large margin-0 pointer list-empreendimentos">
-                    <li class="right color-text-grey-dark hover-opacity-off opacity padding-small active">Entregues</li>
-                    <li class="right color-text-grey-dark hover-opacity-off opacity padding-small">Em construção</li>
+                    <li rel="entregue"
+                        class="empreendimento-status right color-text-grey-dark hover-opacity-off opacity padding-small active">
+                        Entregues
+                    </li>
+                    <li rel="em-andamento"
+                        class="empreendimento-status right color-text-grey-dark hover-opacity-off opacity padding-small">
+                        Em construção
+                    </li>
                 </ul>
             </div>
 
         </div>
         <div class="col padding-48">
             <?php
-            $read->exeRead("empreendimentos", "ORDER BY ID DESC LIMIT 6");
+            $read->exeRead("empreendimentos", "ORDER BY ID DESC LIMIT 12");
             if ($read->getResult()) {
+                $construindo = 0;
+                $emAndamento = 0;
                 foreach ($read->getResult() as $item) {
-                    $item['background'] = \Helpers\Helper::convertImageJson($item['background']);
-                    $item['imagem_do_empreendimento'] = \Helpers\Helper::convertImageJson($item['imagem_do_empreendimento']);
-                    $tpl->show("empreendimento", $item);
+                    $item['status'] = $item['andamento_da_obra'] === '3';
+
+                    if($item['status'])
+                        $construindo ++;
+                    else
+                        $emAndamento ++;
+
+                    if(($item['status'] && $construindo < 4) || (!$item['status'] && $emAndamento < 4)) {
+                        if (!empty($item['endereco'])) {
+                            $endereco = \Entity\Entity::read("endereco", $item['endereco']);
+                            $item['local'] = $endereco['logradouro'] . "/" . $endereco['cep']['cidade']['estado']['sigla'];
+                        } else {
+                            $item['local'] = "";
+                        }
+                        $item['background'] = \Helpers\Helper::convertImageJson($item['background']);
+                        $item['imagem_do_empreendimento'] = \Helpers\Helper::convertImageJson($item['imagem_do_empreendimento']);
+                        $tpl->show("empreendimento", $item);
+                    }
                 }
             }
 
@@ -92,7 +133,6 @@ require_once 'inc/header.php';
         </div>
     </div>
 </section>
-
 
 <section class="row c-background-contato">
     <div class="col padding-48 c-container">
@@ -119,24 +159,26 @@ require_once 'inc/header.php';
             </h4>
         </div>
         <div class="col padding-24">
-            <div class="col c-noticia-arrow pointer">
+            <div class="col c-noticia-arrow pointer no-select" id="prevNoticia">
                 <img src="<?= HOMEDEV ?>assets/img/arrow-circle.png">
             </div>
-            <div class="col right c-noticia-arrow pointer c-arrow-invert">
+            <div class="col right c-noticia-arrow pointer c-arrow-invert no-select" id="nextNoticia">
                 <img src="<?= HOMEDEV ?>assets/img/arrow-circle.png">
             </div>
             <div class="rest">
                 <?php
                 $read->exeRead("noticias", "ORDER BY ID DESC LIMIT 6");
                 if ($read->getResult()) {
+                    $i = 0;
                     foreach ($read->getResult() as $item) {
                         $data = new \Helpers\DateTime();
+                        $item['hide'] = $i > 2 ? "hide" : "";
                         $item['imagem'] = HOME . json_decode($item['imagem'], true)[0]['url'];
                         $item['data'] = $data->getDateTime($item['data'], "d \d\\e M \d\\e Y");
                         $tpl->show("noticias", $item);
+                        $i++;
                     }
                 }
-
                 ?>
             </div>
         </div>

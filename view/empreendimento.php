@@ -18,21 +18,29 @@ extract(\Entity\Entity::read("empreendimentos", ["name" => $link->getUrl()[1]]))
         <div class="c-slide-opaco"></div>
         <?php
         if (!empty($link_do_video)) {
-            if(preg_match('/youtube\.com/i', $link_do_video)) {
+            if (preg_match('/youtube\.com/i', $link_do_video)) {
                 $video_server = "youtube";
-                $video_id = explode("?v=", $link_do_video)[1];
+                if (preg_match('/\?v=/i', $link_do_video))
+                    $video_id = explode("?v=", $link_do_video)[1];
+                elseif (preg_match('/youtube\.com\/embed\//i', $link_do_video))
+                    $video_id = explode('"', explode("youtube.com/embed/", $link_do_video)[1])[0];
+
             }
-            ?>
-            <div class="col padding-128">
-                <div class="col padding-48 block align-center">
-                    <button data-id="<?=$video_id?>" data-server="<?=$video_server?>" class="btn-large btn-empreendimento-video hover-shadow color-text-grey c-slide-play radius-xxlarge color-white align-center">
-                        <img src="<?= HOMEDEV ?>assets/img/play.svg" class="left padding-right" width="34px"
-                             style="width: 34px">
-                        <span class="left upper font-weight-bold font-medium">Assista ao Vídeo</span>
-                    </button>
+
+            if (!empty($video_id)) {
+                ?>
+                <div class="col padding-128">
+                    <div class="col padding-48 block align-center">
+                        <button data-id="<?= $video_id ?>" data-server="<?= $video_server ?>"
+                                class="btn-large btn-empreendimento-video hover-shadow color-text-grey c-slide-play radius-xxlarge color-white align-center">
+                            <img src="<?= HOMEDEV ?>assets/img/play.svg" class="left padding-right" width="34px"
+                                 style="width: 34px">
+                            <span class="left upper font-weight-bold font-medium">Assista ao Vídeo</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <?php
+                <?php
+            }
         }
         ?>
     </div>

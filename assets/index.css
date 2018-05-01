@@ -29,6 +29,8 @@
     background-repeat: no-repeat;
     background-position: center;
     height: 600px;
+    width: 100%;
+    transition: ease-in-out 0.4s;
 }
 
 .c-slide-opaco {
@@ -130,4 +132,18 @@ ul li a {
 
 .color-text-grey-dark, .color-hover-text-grey-dark:hover, .color-text-gray-dark, .color-hover-text-gray-dark:hover {
     color: #242424 !important
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.slide-noticia-fotos {
+    width: 8000px;
+    transition: ease-in-out 0.3s;
 }
