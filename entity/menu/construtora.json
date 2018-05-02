@@ -1,0 +1,3 @@
+{
+  "*": ["cidade", "cep", "endereco", "infraestrutura", "estado", "pais", "andamento_da_obra", "caracteristica", "infraestrutura_caracteristicas", "planta"]
+}
