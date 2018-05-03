@@ -10,7 +10,7 @@ define('HOMEDEV', HOME . (DEV && DOMINIO === "construtora" ? "" : "vendor/conn/c
 
 require_once 'inc/header.php';
 
-extract(\Entity\Entity::read("empreendimentos", ["name" => $link->getUrl()[1]]));
+extract($link->getDicionario()->getDataFullRead());
 ?>
 
     <div class="col c-slide empreendimento-video relative"
